@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model ClubMember {
+  id          Int     @id @default(autoincrement())
+  Name        String  @db.VarChar(100)
+  Sex         String
+  Department  String  @db.VarChar(255)
+  Designation String? @db.VarChar(255)
+  FFCS        Boolean @default(false)
+  Events      Event[]
+}
+
+model Event {
+  id                  Int                @id @default(autoincrement())
+  Name                String?
+  Date                DateTime
+  Time                DateTime
+  Description         String             @db.VarChar(255)
+  Venue               String
+  participants        Particpant[]
+  ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
+  clubMemberId        Int?
+  Faculty             Faculty?           @relation(fields: [facultyId], references: [id])
+  facultyId           Int?
+  StudentCordinator   StudentCordinator? @relation(fields: [studentCordinatorId], references: [id])
+  studentCordinatorId Int?
+
+  @@index([facultyId])
+  @@index([studentCordinatorId])
+  @@index([clubMemberId])
+}
+
+model Faculty {
+  id     Int     @id
+  Name   String
+  Events Event[]
+}
+
+model StudentCordinator {
+  id             Int     @id
+  Name           String
+  RegisterNumber String
+  Phone          Int
+  Events         Event[]
+}
+
+model Particpant {
+  id             Int          @id @default(autoincrement())
+  Email          String       @unique
+  Name           String
+  RegisterNumber String       @unique
+  Event          Event?       @relation(fields: [eventId], references: [id])
+  eventId        Int?
+  Attendance     Attendance[]
+
+  @@index([eventId])
+}
+
+model Attendance {
+  id           Int        @id @default(autoincrement())
+  Date         DateTime
+  EntryTime    DateTime
+  ExitTime     DateTime
+  QR           String     @unique
+  particpant   Particpant @relation(fields: [particpantId], references: [id])
+  particpantId Int
+
+  @@index([particpantId])
+}
