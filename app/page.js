@@ -13,9 +13,14 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  HStack,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 
 export default function SimpleCard() {
+  const [showPassword, setShowPassword] = useState(false)
   return (
     <>
     <Flex
@@ -120,7 +125,7 @@ export default function SimpleCard() {
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
                       }>
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                      {/* {showPassword ? <ViewIcon /> : <ViewIcon />} */}
                     </Button>
                   </InputRightElement>
                 </InputGroup>

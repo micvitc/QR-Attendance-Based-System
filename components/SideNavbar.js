@@ -1,5 +1,6 @@
+"use client"
+import Link from 'next/link'
 import { useState } from 'react'
-import admin from '@/pages/admin/page'
 function NavLink({ to, children }) {
   return <a href={to} className={`mx-4`}>
     {children}
@@ -16,12 +17,12 @@ function MobileNav({ open, setOpen }) {
         </div>
       </div>
       <div className="flex flex-col ml-4">
-        <a className="text-xl font-medium my-4 text-white" href="/admin/page" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+        <Link className="text-xl font-medium my-4 text-white" href="/admin" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
           New Event
-                </a>
-        <a className="text-xl font-medium my-4 text-white" href="/" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+                </Link>
+        <Link className="text-xl font-medium my-4 text-white" href="/" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
           Events
-                </a>
+                </Link>
                 
       </div>
     </div>
@@ -43,7 +44,7 @@ export default function Navbar() {
       </div>
       <div className="flex-grow flex justify-start "> 
         <div className="hidden md:flex font-serif font-semibold text-white mt-12 mr-72">
-          <NavLink to="/admin/page">
+          <NavLink to="/admin">
             New Event
                     </NavLink>
           <NavLink to="/">

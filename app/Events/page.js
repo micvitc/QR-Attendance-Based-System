@@ -1,5 +1,4 @@
 "use client"
-import { SearchIcon } from '@chakra-ui/icons';
 import {
   Box,
   chakra,
