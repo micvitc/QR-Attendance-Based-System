@@ -3,8 +3,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Installing dependencies
 
 ```bash
-chmod +x install_dependencies.sh
-./install_dependencies.sh
+npm i --legacy-peer-deps
 ```
 
 ## Getting Started
