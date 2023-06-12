@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 function NavLink({ to, children }) {
@@ -20,8 +21,11 @@ function MobileNav({ open, setOpen }) {
         <Link className="text-xl font-medium my-4 text-white" href="/admin" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
           New Event
                 </Link>
-        <Link className="text-xl font-medium my-4 text-white" href="/" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+        <Link className="text-xl font-medium my-4 text-white" href="/events" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
           Events
+                </Link>
+                <Link className="text-xl font-medium my-4 text-white" href="/login" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+          Login
                 </Link>
                 
       </div>
@@ -47,14 +51,17 @@ export default function Navbar() {
           <NavLink to="/admin">
             New Event
                     </NavLink>
-          <NavLink to="/">
+          <NavLink to="/events">
                   Events
+                    </NavLink>
+                    <NavLink to="/login">
+                  Login
                     </NavLink>
         </div>
       </div>
             <div className='hidden md:flex right-0 font-serif font-semibold text-white mt-12 mr-2'>Hi Lead!</div>
-      <div className='h-24 w-24 bg-white mr-6'>
-        <img src='https://micvitc.github.io/assets/img/MIC%20Logo.svg' alt='MIC'></img>
+      <div className='mr-6'>
+        <Image width={100} height={100} src='/logo.png' alt='MIC'/>
       </div>
       <div className="w-3/12 flex justify-end items-center md:hidden">
 
