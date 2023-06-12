@@ -27,6 +27,12 @@ function MobileNav({ open, setOpen }) {
                 <Link className="text-xl font-medium my-4 text-white" href="/login" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
           Login
                 </Link>
+                <Link className="text-xl font-medium my-4 text-white" href="/generate" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+          Generate
+                </Link>
+                <Link className="text-xl font-medium my-4 text-white" href="/scan" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+          Scan
+                </Link>
                 
       </div>
     </div>
@@ -41,10 +47,11 @@ export default function Navbar() {
     <nav className="flex filter drop-shadow-md bg-blue-500 px-4 py-4 h-30 items-center">
       <MobileNav open={open} setOpen={setOpen} />
       <div className="w-3/12 flex items-center text-white text-3xl font-semibold font-serif">
-        
+        <Link href="/">
         <h1 className="hidden md:block">
           Smart <br /> Attendance
         </h1>
+      </Link>
       </div>
       <div className="flex-grow flex justify-start "> 
         <div className="hidden md:flex font-serif font-semibold text-white mt-12 mr-72">
@@ -56,6 +63,12 @@ export default function Navbar() {
                     </NavLink>
                     <NavLink to="/login">
                   Login
+                    </NavLink>
+                    <NavLink to="/generate">
+                  Generate
+                    </NavLink>
+                    <NavLink to="/scan">
+                  Scan
                     </NavLink>
         </div>
       </div>
