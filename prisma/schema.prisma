@@ -16,6 +16,7 @@ model ClubMember {
   Designation String? @db.VarChar(255)
   FFCS        Boolean @default(false)
   Events      Event[]
+  Session     Session[]
 }
 
 model Event {
@@ -74,4 +75,12 @@ model Attendance {
   particpantId Int
 
   @@index([particpantId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         ClubMember     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
