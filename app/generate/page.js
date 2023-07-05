@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import QRCode from "react-qr-code";
 import styles from "../../styles/Home.module.css";
 
+
 function Generate() {
+ 
   const [qrCodeValue, setQrCodeValue] = useState("");
 
   return (

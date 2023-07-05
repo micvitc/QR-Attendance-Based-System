@@ -19,19 +19,20 @@ model ClubMember {
 }
 
 model Event {
-  id                  Int                @id @default(autoincrement())
+  id                  String             @id @unique @default(cuid())
   Name                String?
-  Date                DateTime
-  Time                DateTime
+  Date                DateTime           @default(now())
+  StartTime           DateTime           @default(now())
+  EndTime             DateTime           @default(now())
   Description         String             @db.VarChar(255)
   Venue               String
-  participants        Particpant[]
-  ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
   clubMemberId        Int?
-  Faculty             Faculty?           @relation(fields: [facultyId], references: [id])
   facultyId           Int?
-  StudentCordinator   StudentCordinator? @relation(fields: [studentCordinatorId], references: [id])
   studentCordinatorId Int?
+  participants        Participant[]
+  ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
+  Faculty             Faculty?           @relation(fields: [facultyId], references: [id])
+  StudentCordinator   StudentCordinator? @relation(fields: [studentCordinatorId], references: [id])
 
   @@index([facultyId])
   @@index([studentCordinatorId])
@@ -52,26 +53,27 @@ model StudentCordinator {
   Events         Event[]
 }
 
-model Particpant {
-  id             Int          @id @default(autoincrement())
+model Participant {
+  id             String       @id @unique
   Email          String       @unique
+  QR             String       @unique
   Name           String
   RegisterNumber String       @unique
+  eventId        String?
   Event          Event?       @relation(fields: [eventId], references: [id])
-  eventId        Int?
   Attendance     Attendance[]
 
   @@index([eventId])
 }
 
 model Attendance {
-  id           Int        @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   Date         DateTime
   EntryTime    DateTime
   ExitTime     DateTime
-  QR           String     @unique
-  particpant   Particpant @relation(fields: [particpantId], references: [id])
-  particpantId Int
+  Attended     Boolean
+  particpantId String
+  particpant   Participant @relation(fields: [particpantId], references: [id])
 
   @@index([particpantId])
 }
