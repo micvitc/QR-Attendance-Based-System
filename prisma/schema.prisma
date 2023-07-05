@@ -9,14 +9,26 @@ datasource db {
 }
 
 model ClubMember {
-  id          Int     @id @default(autoincrement())
-  Name        String  @db.VarChar(100)
-  Sex         String
-  Department  String  @db.VarChar(255)
+  id          String     @id @default(cuid())
+  Username    String  @unique
+  RegNo  String  @unique
+  Name        String
+  VITEmail    String  @unique
+  RegisteredFaculty Faculty? @relation(fields: [facultyId], references: [id])
+  facultyId   String
+  DepartmentPreference_One String?
+  DepartmentPreference_Two String?
+  WhatsAppNumber String
+  Description String?
+  Sex         String?
+  Department  String?  @db.VarChar(255)
   Designation String? @db.VarChar(255)
   FFCS        Boolean @default(false)
-  Events      Event[]
+
+  // Events      Event[]
   Session     Session[]
+
+  @@index([facultyId])
 }
 
 model Event {
@@ -27,22 +39,23 @@ model Event {
   Description         String             @db.VarChar(255)
   Venue               String
   participants        Particpant[]
-  ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
+  // ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
   clubMemberId        Int?
-  Faculty             Faculty?           @relation(fields: [facultyId], references: [id])
+  // Faculty             Faculty           @relation(fields: [facultyId], references: [id])
   facultyId           Int?
   StudentCordinator   StudentCordinator? @relation(fields: [studentCordinatorId], references: [id])
   studentCordinatorId Int?
 
-  @@index([facultyId])
   @@index([studentCordinatorId])
   @@index([clubMemberId])
+  @@index([facultyId])
 }
 
 model Faculty {
-  id     Int     @id
+  id     String     @id @default(cuid())
   Name   String
-  Events Event[]
+  // Events Event[]
+  ClubMember ClubMember[]
 }
 
 model StudentCordinator {
@@ -80,7 +93,9 @@ model Attendance {
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
-  userId       Int
+  userId       String
   expires      DateTime
   user         ClubMember     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

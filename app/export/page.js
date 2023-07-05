@@ -1,4 +1,5 @@
 'use client'
+import axios from "axios";
 import React, { useState } from "react";
 
 function App() {
@@ -25,6 +26,15 @@ function App() {
     });
 
     setArray(newArray);
+    axios.post('/api/upload', newArray)
+    .then((res) => {
+      console.log(res);
+      // console.log(res.data);
+    }
+    )
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
   const handleOnSubmit = (e) => {

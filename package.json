@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
-
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",
@@ -20,6 +19,7 @@
     "@prisma/client": "^4.16.2",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
+    "debug": "^4.3.4",
     "framer-motion": "^10.12.12",
     "nanoid": "^4.0.2",
     "next": "13.4.1",
