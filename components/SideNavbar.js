@@ -28,6 +28,10 @@ function MobileNav({ open, setOpen }) {
           Login
                 </Link>
                 <Link className="text-xl font-medium my-4 text-white" href="/generate" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
+          signin
+                </Link>
+
+                <Link className="text-xl font-medium my-4 text-white" href="/generate" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
           Generate
                 </Link>
                 <Link className="text-xl font-medium my-4 text-white" href="/scan" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
@@ -61,15 +65,22 @@ export default function Navbar() {
           <NavLink to="/events">
                   Events
                     </NavLink>
-                    <NavLink to="/login">
-                  Login
-                    </NavLink>
+                    
                     <NavLink to="/generate">
                   Generate
                     </NavLink>
                     <NavLink to="/scan">
                   Scan
                     </NavLink>
+                    <NavLink to="/login">
+                  Login
+                    </NavLink>
+                    <NavLink to="/signin">
+                      
+                  Signin    
+                    </NavLink>
+                    
+                    
         </div>
       </div>
             <div className='hidden md:flex right-0 font-serif font-semibold text-white mt-12 mr-2'>Hi Lead!</div>
