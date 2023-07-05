@@ -1,5 +1,5 @@
-"use client"
 import { useState } from 'react';
+import { signIn } from 'next-auth/client';
 import {
   Flex,
   Box,
@@ -17,13 +17,11 @@ import {
 
 export default function Login() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(''); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Add your desired logic here for form submission
+    signIn('google');
   };
 
   return (

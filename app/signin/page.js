@@ -1,5 +1,5 @@
-"use client"
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
+import { signIn } from 'next-auth/client';
 import {
   Flex,
   Box,
@@ -13,28 +13,15 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  HStack,
-  InputGroup,
-  InputRightElement,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 
 export default function SignIn() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [regNo, setRegNo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('Registration Number:', regNo);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Add your desired logic here for form submission
+    signIn('google');
   };
 
   return (
@@ -42,7 +29,8 @@ export default function SignIn() {
       minH={'80vh'}
       align={'center'}
       justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
+      bg={useColorModeValue('gray.50', 'gray.800')}
+    >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -56,39 +44,10 @@ export default function SignIn() {
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
-          p={8}>
+          p={8}
+        >
           <Stack spacing={4}>
             <form onSubmit={handleSubmit}>
-              <Stack>
-                <Box>
-                  <FormControl id="firstName" isRequired>
-                    <FormLabel>First Name</FormLabel>
-                    <Input
-                      type="text"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl id="lastName">
-                    <FormLabel>Last Name</FormLabel>
-                    <Input
-                      type="text"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                  </FormControl>
-                </Box>
-              </Stack>
-              <FormControl id="regno" isRequired>
-                <FormLabel>Registration Number</FormLabel>
-                <Input
-                  type="regno"
-                  value={regNo}
-                  onChange={(e) => setRegNo(e.target.value)}
-                />
-              </FormControl>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input
@@ -99,20 +58,11 @@ export default function SignIn() {
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
-                <InputGroup>
-                  <Input
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <InputRightElement h={'full'}>
-                    <Button
-                      variant={'ghost'}
-                      onClick={() => setShowPassword((showPassword) => !showPassword)}>
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </FormControl>
               <Stack spacing={10} pt={2}>
                 <Button
@@ -123,13 +73,17 @@ export default function SignIn() {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
+                  }}
+                >
                   Sign up
                 </Button>
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Already a user? <Link color={'blue.400'} href="/login">Login</Link>
+                  Already a user?{' '}
+                  <Link color={'blue.400'} href="/login">
+                    Login
+                  </Link>
                 </Text>
               </Stack>
             </form>
@@ -137,5 +91,6 @@ export default function SignIn() {
         </Box>
       </Stack>
     </Flex>
+    
   );
 }
