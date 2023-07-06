@@ -9,27 +9,25 @@ datasource db {
 }
 
 model ClubMember {
-  id                       String   @id @default(cuid())
-  Username                 String   @unique
-  RegNo                    String   @unique
+  id                       String    @id @default(cuid())
+  Username                 String    @unique
+  RegNo                    String    @unique
   Name                     String
-  VITEmail                 String   @unique
-  RegisteredFaculty        Faculty? @relation(fields: [facultyId], references: [id])
-  facultyId                String
+  VITEmail                 String    @unique
+  RegisteredFaculty        Faculty?  @relation(fields: [FacultyId], references: [id])
+  FacultyId                String
   DepartmentPreference_One String?
   DepartmentPreference_Two String?
   WhatsAppNumber           String
   Description              String?
   Sex                      String?
-  Department               String?  @db.VarChar(255)
-  Designation              String?  @db.VarChar(255)
-  FFCS                     Boolean  @default(false)
+  Department               String?   @db.VarChar(255)
+  Designation              String?   @db.VarChar(255)
+  FFCS                     Boolean   @default(false)
+  Session                  Session[]
+  Event                    Event[]
 
-  // Events      Event[]
-  Session Session[]
-  Event   Event[]
-
-  @@index([facultyId])
+  @@index([FacultyId])
 }
 
 model Event {
@@ -66,7 +64,7 @@ model StudentCordinator {
   Name           String
   RegisterNumber String
   Phone          Int
-  Events         Event[]
+  Event          Event[]
 }
 
 model Participant {
