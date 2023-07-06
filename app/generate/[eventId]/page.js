@@ -3,13 +3,18 @@ import React from "react";
 import { db } from "@/lib/db";
 import QRCode from "react-qr-code";
 import styles from "../../../styles/Home.module.css";
+import { getAuthSession } from "@/lib/auth";
 
 async function Generate({ params }) {
+  const session = await getAuthSession();
+  const ClubMember = await db.clubMember.findFirst({
+    where: { VITEmail: session.user.email },
+  });
   const Participant = await db.participant.findFirst({
     where: {
       AND: {
         eventId: params.eventId,
-        clubMemberId: "cljr0li8200057krc8fn3idm6",
+        clubMemberId: ClubMember.id,
       },
     },
   });
