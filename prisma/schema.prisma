@@ -24,23 +24,25 @@ model ClubMember {
   Department  String?  @db.VarChar(255)
   Designation String? @db.VarChar(255)
   FFCS        Boolean @default(false)
+  isAdmin     Boolean @default(false)
 
-  // Events      Event[]
+  Events      Event[]
   Session     Session[]
+  Particpant  Particpant[]
 
   @@index([facultyId])
 }
 
 model Event {
-  id                  Int                @id @default(autoincrement())
+  id                  String                @id @default(cuid())
   Name                String?
   Date                DateTime
   Time                DateTime
   Description         String             @db.VarChar(255)
   Venue               String
   participants        Particpant[]
-  // ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
-  clubMemberId        Int?
+  ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
+  clubMemberId        String?
   // Faculty             Faculty           @relation(fields: [facultyId], references: [id])
   facultyId           Int?
   StudentCordinator   StudentCordinator? @relation(fields: [studentCordinatorId], references: [id])
@@ -67,15 +69,19 @@ model StudentCordinator {
 }
 
 model Particpant {
-  id             Int          @id @default(autoincrement())
+  id             String          @id @default(cuid())
   Email          String       @unique
   Name           String
   RegisterNumber String       @unique
   Event          Event?       @relation(fields: [eventId], references: [id])
-  eventId        Int?
+  eventId        String?
   Attendance     Attendance[]
+  ClubMember     ClubMember   @relation(fields: [clubMemberId], references: [id])
+  clubMemberId   String
+  QR             String       @unique
 
   @@index([eventId])
+  @@index([clubMemberId])
 }
 
 model Attendance {
@@ -85,7 +91,7 @@ model Attendance {
   ExitTime     DateTime
   QR           String     @unique
   particpant   Particpant @relation(fields: [particpantId], references: [id])
-  particpantId Int
+  particpantId String @unique
 
   @@index([particpantId])
 }
