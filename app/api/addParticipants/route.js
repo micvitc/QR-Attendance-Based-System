@@ -13,30 +13,27 @@ const genRandStr = (length) => {
 };
 
 export async function POST(request) {
-  const body = await request.json();
+  const { EventId, ClubMemberIds } = await request.json();
   try {
-    const Event = await db.event.create({
-      data: {
-        id: genRandStr(5),
-        Name: body?.Name,
-        Description: body?.Description,
-        StartTime: new Date(body?.StartTime),
-        EndTime: new Date(body?.EndTime),
-        Venue: body?.Venue,
-      },
-    });
-    console.log(body);
+    for (const C_id of ClubMemberIds) {
+      console.log(C_id);
+      await db.participant.create({
+        data: {
+          id: genRandStr(5),
+          clubMemberId: C_id,
+          eventId: EventId,
+          QR: EventId + C_id,
+        },
+      });
+    }
     return NextResponse.json(
-      {
-        message: "Event Created Successfully",
-        data: Event,
-      },
+      { message: "Updated participants Successfully" },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
       {
-        message: "Could not create event...",
+        message: "Could not update participants ...",
         error: error,
       },
       { status: 500 }

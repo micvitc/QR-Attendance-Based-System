@@ -4,7 +4,6 @@ import axios from "axios";
 
 const admin = () => {
   const [EventName, setEventName] = useState("");
-  const [Date, setDate] = useState(null);
   const [StartTime, setStartTime] = useState(null);
   const [EndTime, setEndTime] = useState(null);
   const [Venue, setVenue] = useState("");
@@ -12,10 +11,9 @@ const admin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(EventName, Date, StartTime, EndTime, Venue, Description);
+    console.log(EventName, StartTime, EndTime, Venue, Description);
     const data = {
       Name: EventName,
-      Date: Date,
       StartTime: StartTime,
       EndTime: EndTime,
       Venue: Venue,
@@ -32,7 +30,6 @@ const admin = () => {
       });
 
     setEventName("");
-    setDate(null);
     setStartTime(null);
     setEndTime(null);
     setVenue("");
@@ -94,23 +91,7 @@ const admin = () => {
             />
           </div>
         </div>
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full px-3">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="grid-venue">
-              Date
-            </label>
-            <input
-              className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-              id="grid-venue"
-              type="date"
-              placeholder=""
-              value={Date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </div>
-        </div>
+
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label

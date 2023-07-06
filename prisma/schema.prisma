@@ -9,31 +9,32 @@ datasource db {
 }
 
 model ClubMember {
-  id                       String    @id @default(cuid())
-  Username                 String    @unique
-  RegNo                    String    @unique
+  id                       String   @id @default(cuid())
+  Username                 String   @unique
+  RegNo                    String   @unique
   Name                     String
-  VITEmail                 String    @unique
-  RegisteredFaculty        Faculty?  @relation(fields: [FacultyId], references: [id])
+  VITEmail                 String   @unique
+  RegisteredFaculty        Faculty? @relation(fields: [FacultyId], references: [id])
   FacultyId                String
   DepartmentPreference_One String?
   DepartmentPreference_Two String?
   WhatsAppNumber           String
   Description              String?
   Sex                      String?
-  Department               String?   @db.VarChar(255)
-  Designation              String?   @db.VarChar(255)
-  FFCS                     Boolean   @default(false)
-  Session                  Session[]
-  Event                    Event[]
+  Department               String?  @db.VarChar(255)
+  Designation              String?  @db.VarChar(255)
+  FFCS                     Boolean  @default(false)
+
+  Session    Session[]
+  Event      Event[]
+  Particpant Participant[]
 
   @@index([FacultyId])
 }
 
 model Event {
-  id                  String             @id @unique @default(cuid())
+  id                  String             @id @unique
   Name                String?
-  Date                DateTime           @default(now())
   StartTime           DateTime           @default(now())
   EndTime             DateTime           @default(now())
   Description         String             @db.VarChar(255)
@@ -41,7 +42,7 @@ model Event {
   clubMemberId        String?
   facultyId           String?
   studentCordinatorId Int?
-  participants        Participant[]
+  Participants        Participant[]
   ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
   Faculty             Faculty?           @relation(fields: [facultyId], references: [id])
   StudentCordinator   StudentCordinator? @relation(fields: [studentCordinatorId], references: [id])
@@ -68,16 +69,16 @@ model StudentCordinator {
 }
 
 model Participant {
-  id             String       @id @unique
-  Email          String       @unique
-  QR             String       @unique
-  Name           String
-  RegisterNumber String       @unique
-  eventId        String?
-  Event          Event?       @relation(fields: [eventId], references: [id])
-  Attendance     Attendance[]
+  id           String       @id @unique
+  QR           String       @unique
+  eventId      String?
+  Event        Event?       @relation(fields: [eventId], references: [id])
+  Attendance   Attendance[]
+  ClubMember   ClubMember   @relation(fields: [clubMemberId], references: [id])
+  clubMemberId String
 
   @@index([eventId])
+  @@index([clubMemberId])
 }
 
 model Attendance {
