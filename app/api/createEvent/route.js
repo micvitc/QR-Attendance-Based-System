@@ -25,7 +25,20 @@ export async function POST(request) {
         Venue: body?.Venue,
       },
     });
-    console.log(body);
+    const ids = await db.clubMember.findMany({
+      select: { id: true },
+    });
+    for (const C_id of ids) {
+      console.log(C_id);
+      await db.participant.create({
+        data: {
+          id: genRandStr(5),
+          clubMemberId: C_id.id,
+          eventId: Event.id,
+          QR: Event.id + C_id.id,
+        },
+      });
+    }
     return NextResponse.json(
       {
         message: "Event Created Successfully",

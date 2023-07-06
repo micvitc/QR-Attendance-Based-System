@@ -50,6 +50,7 @@ export default async function BasicStatistics() {
         {EventList.map((event, index) => (
           <Events
             key={index}
+            id={event.id}
             Name={event.Name}
             StartTime={moment(event.StartTime).format("Do MMM YYYY, h:mm a")}
             EndTime={moment(event.EndTime).format("Do MMM YYYY, h:mm a")}
