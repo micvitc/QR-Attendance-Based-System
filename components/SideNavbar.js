@@ -12,7 +12,7 @@ export default async function Navbar() {
     <>
     <nav class="bg-blue-500 border-gray-200">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-   <Link href="https://flowbite.com/" class="flex items-center">
+   <Link href="/" class="flex items-center">
         <img src="logo.png" class="h-8 mr-3" alt="MIC Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">MIC</span>
     </Link>
