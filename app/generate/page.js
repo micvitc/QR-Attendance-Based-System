@@ -1,27 +1,21 @@
 // generate.js
-"use client";
-import React, { useState } from "react";
+import React from "react";
+import { db } from "@/lib/db";
 import QRCode from "react-qr-code";
 import styles from "../../styles/Home.module.css";
 
-
-function Generate() {
- 
-  const [qrCodeValue, setQrCodeValue] = useState("");
-
+async function Generate() {
+  const Participant = await db.participant.findFirst({
+    where: {
+      AND: { eventId: eventId, clubMemberId: clubMemberId },
+    },
+  });
+  const QR = Participant?.QR;
+  console.log(Participant);
   return (
     <div className={styles.main}>
       <div className={styles.card}>Generate QR</div>
-
-      {qrCodeValue != "" && (
-        <QRCode value={qrCodeValue} className={styles.containerColumn} />
-      )}
-      <input
-        className={styles.card}
-        onChange={(e) => {
-          setQrCodeValue(e.target.value);
-        }}
-      />
+      {QR != "" && <QRCode value={QR} className={styles.containerColumn} />}
     </div>
   );
 }
