@@ -7,6 +7,7 @@ import { Input } from 'postcss';
 
 export default async function BasicStatistics() {
   const events = await db.Event.findMany();
+  console.log(events);
   return (
     <div className='container mx-auto'>
         <div class="max-w-7xl mx-auto pt-5 px-5 sm:px-12 md:px-17">
@@ -26,7 +27,7 @@ export default async function BasicStatistics() {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
     {events.map((event, index) => (
-      <Events key={index} Name={event.Name} Date={event.Date} Time={event.Time} Description={event.Description} Venue={event.Venue}/>
+      <Events key={index} Name={event.Name} Date={event.Date.toString()} Time={event.Time.toString()} Description={event.Description} Venue={event.Venue}/>
       // <Events key={index} Name={event.Name} />
 
       ))}
