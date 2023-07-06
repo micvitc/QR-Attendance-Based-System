@@ -14,7 +14,7 @@ function MobileNav({ open, setOpen }) {
       <div className="flex items-center justify-center filter drop-shadow-md bg-blue-500 h-20">
        
         <div className='h-24 w-24 bg-white'>
-          <img className='image' src='https://micvitc.github.io/assets/img/MIC%20Logo.svg' alt='MIC'></img>
+          {/* <img className='image' src='https://micvitc.github.io/assets/img/MIC%20Logo.svg' alt='MIC'></img> */}
         </div>
       </div>
       <div className="flex flex-col ml-4">

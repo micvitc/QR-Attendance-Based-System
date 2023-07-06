@@ -14,7 +14,7 @@ import {
 import { Input } from 'postcss';
 
 function Events(props) {
-  const { title, stat } = props;
+  const { Name } = props;
   return (
     <Stat
       px={{ base: 4, md: 8 }}
@@ -24,11 +24,21 @@ function Events(props) {
       borderColor={useColorModeValue('gray.800', 'gray.500')}
       rounded={'lg'}>
       <StatLabel fontWeight={'medium'} isTruncated>
-        {title}
+        {Name}
       </StatLabel>
-      <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
-        {stat}
+      {/* <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
+        {Date}
       </StatNumber>
+      <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
+        {Time}
+      </StatNumber>
+      <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
+        {Description}
+      </StatNumber>
+      <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
+        {Venue}
+      </StatNumber> */}
+
     </Stat>
   );
 }
@@ -70,3 +80,5 @@ function BasicStatistics() {
     </Box>
   );
 }
+
+export default Events;
