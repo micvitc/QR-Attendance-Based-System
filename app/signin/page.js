@@ -1,4 +1,5 @@
 "use client"
+import UserAuthSignUp from '@/components/Auth/UserAuthSignUp';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   Flex,
@@ -133,6 +134,7 @@ export default function SignIn() {
                 </Text>
               </Stack>
             </form>
+            <UserAuthSignUp/>
           </Stack>
         </Box>
       </Stack>

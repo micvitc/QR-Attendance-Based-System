@@ -1,5 +1,6 @@
 'use client'
 
+import { BellIcon } from '@chakra-ui/icons'
 import { signIn } from 'next-auth/react'
 import {useState} from 'react'
 // import axios  from 'axios'
@@ -15,23 +16,24 @@ const UserAuthSignUp= ({ className, ...props }) => {
     try {
       await signIn('google')
     } catch (error) {
-        console.log(error)
+        console.log(error)  
     } 
   }
 
   return (
-    <div className={'flex flex-col justify-center'} {...props}>
+    <div  class=" flex gap-4 items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 "
+    {...props}>
+      <BellIcon/>
       <button
         // isLoading={isLoadingGoogle}
         type='button'
-        size='sm'
-        className='w-full'
         onClick={loginWithGoogle}
         disabled={isLoadingGoogle}>
-        {/* {isLoadingGoogle ? null : <Icons.google className='h-4 w-4 mr-2' />} */}
+       <p>
         Google
+        </p> 
       </button>
-      
+
           
     </div>
   )
