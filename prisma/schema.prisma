@@ -9,44 +9,42 @@ datasource db {
 }
 
 model ClubMember {
-  id          String     @id @default(cuid())
-  Username    String  @unique
-  RegNo  String  @unique
-  Name        String
-  VITEmail    String  @unique
-  RegisteredFaculty Faculty? @relation(fields: [facultyId], references: [id])
-  facultyId   String
+  id                       String       @id @default(cuid())
+  Sex                      String?
+  Department               String?      @db.VarChar(255)
+  Designation              String?      @db.VarChar(255)
+  FFCS                     Boolean      @default(false)
   DepartmentPreference_One String?
   DepartmentPreference_Two String?
-  WhatsAppNumber String
-  Description String?
-  Sex         String?
-  Department  String?  @db.VarChar(255)
-  Designation String? @db.VarChar(255)
-  FFCS        Boolean @default(false)
-  isAdmin     Boolean @default(false)
-
-  Events      Event[]
-  Session     Session[]
-  Particpant  Particpant[]
+  Description              String?
+  RegNo                    String       @unique
+  Username                 String       @unique
+  VITEmail                 String       @unique
+  WhatsAppNumber           String
+  facultyId                String
+  Name                     String
+  isAdmin                  Boolean      @default(false)
+  RegisteredFaculty        Faculty?     @relation(fields: [facultyId], references: [id])
+  Events                   Event[]
+  Session                  Session[]
+  Particpant               Particpant[]
 
   @@index([facultyId])
 }
 
 model Event {
-  id                  String                @id @default(cuid())
+  id                  String             @id @default(cuid())
   Name                String?
   Date                DateTime
   Time                DateTime
   Description         String             @db.VarChar(255)
   Venue               String
+  clubMemberId        String?
+  facultyId           Int?
+  studentCordinatorId Int?
   participants        Particpant[]
   ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
-  clubMemberId        String?
-  // Faculty             Faculty           @relation(fields: [facultyId], references: [id])
-  facultyId           Int?
   StudentCordinator   StudentCordinator? @relation(fields: [studentCordinatorId], references: [id])
-  studentCordinatorId Int?
 
   @@index([studentCordinatorId])
   @@index([clubMemberId])
@@ -54,9 +52,8 @@ model Event {
 }
 
 model Faculty {
-  id     String     @id @default(cuid())
-  Name   String
-  // Events Event[]
+  id         String       @id @default(cuid())
+  Name       String
   ClubMember ClubMember[]
 }
 
@@ -69,16 +66,16 @@ model StudentCordinator {
 }
 
 model Particpant {
-  id             String          @id @default(cuid())
+  id             String       @id @default(cuid())
   Email          String       @unique
   Name           String
   RegisterNumber String       @unique
-  Event          Event?       @relation(fields: [eventId], references: [id])
   eventId        String?
+  QR             String       @unique
+  clubMemberId   String
+  Event          Event?       @relation(fields: [eventId], references: [id])
   Attendance     Attendance[]
   ClubMember     ClubMember   @relation(fields: [clubMemberId], references: [id])
-  clubMemberId   String
-  QR             String       @unique
 
   @@index([eventId])
   @@index([clubMemberId])
@@ -90,18 +87,18 @@ model Attendance {
   EntryTime    DateTime
   ExitTime     DateTime
   QR           String     @unique
+  particpantId String     @unique
   particpant   Particpant @relation(fields: [particpantId], references: [id])
-  particpantId String @unique
 
   @@index([particpantId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
+  id           String     @id @default(cuid())
+  sessionToken String     @unique
   userId       String
   expires      DateTime
-  user         ClubMember     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         ClubMember @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
