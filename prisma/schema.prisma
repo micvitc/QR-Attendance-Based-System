@@ -98,6 +98,7 @@ model Session {
   sessionToken String     @unique
   userId       String
   expires      DateTime
+  email        String
   user         ClubMember @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])

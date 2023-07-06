@@ -22,7 +22,7 @@ const UserAuthSignUp= ({ className, ...props }) => {
   return (
     <div className={'flex flex-col justify-center'} {...props}>
       <button
-        isLoading={isLoadingGoogle}
+        // isLoading={isLoadingGoogle}
         type='button'
         size='sm'
         className='w-full'
