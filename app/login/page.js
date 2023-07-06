@@ -14,6 +14,7 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import UserAuthSignUp from '@/components/Auth/UserAuthSignUp';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -82,6 +83,7 @@ export default function Login() {
               </Stack>
             </form>
           </Stack>
+          <UserAuthSignUp/>
         </Box>
       </Stack>
     </Flex>
