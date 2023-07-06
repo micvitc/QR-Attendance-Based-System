@@ -24,7 +24,7 @@ model ClubMember {
   Department               String?  @db.VarChar(255)
   Designation              String?  @db.VarChar(255)
   FFCS                     Boolean  @default(false)
-
+  isAdmin                  Boolean      @default(false)
   Session    Session[]
   Event      Event[]
   Particpant Participant[]
@@ -55,7 +55,6 @@ model Event {
 model Faculty {
   id         String       @id @default(cuid())
   Name       String
-  // Events Event[]
   ClubMember ClubMember[]
   Event      Event[]
 }
@@ -98,6 +97,7 @@ model Session {
   sessionToken String     @unique
   userId       String
   expires      DateTime
+  email        String
   user         ClubMember @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
