@@ -4,13 +4,6 @@ import { nanoid } from "nanoid";
 
 export async function POST(request) {
   var body = await request.json();
-  //   console.log(body[0])
-  //   const {
-  //     email,
-  //     password,
-  //    } = body;
-
-  //    const hashedPassword = await bcrypt.hash(password, 12);
   Promise.all(
     body.map(async (member, i) => {
       const faculty = await db.Faculty.findFirst({
@@ -22,7 +15,7 @@ export async function POST(request) {
           RegNo: member.RegNo,
           Name: member.Name,
           VITEmail: member.VITEmail,
-          FacultyId: "cljr0i41j00007k0sy48z3l8x",
+          FacultyId: faculty.id,
           WhatsAppNumber: member.WhatsAppNumber,
           DepartmentPreference_One: member.DepartmentPreference_One,
           DepartmentPreference_Two: member.DepartmentPreference_Two,

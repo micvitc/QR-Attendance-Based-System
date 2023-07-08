@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import UserAuthSignUp from '@/components/Auth/UserAuthSignUp';
 
-export default function Login() {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
