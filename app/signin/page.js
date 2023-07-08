@@ -39,7 +39,8 @@ export default function SignIn() {
   };
 
   return (
-    <Flex
+    <>
+    {/* <Flex
       minH={'80vh'}
       align={'center'}
       justify={'center'}
@@ -134,10 +135,12 @@ export default function SignIn() {
                 </Text>
               </Stack>
             </form>
-            <UserAuthSignUp/>
           </Stack>
         </Box>
       </Stack>
-    </Flex>
+    </Flex> */}
+            <UserAuthSignUp/>
+    </>
+
   );
 }
