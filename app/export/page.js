@@ -27,14 +27,14 @@ function App() {
 
     setArray(newArray);
     axios.post('/api/upload', newArray)
-    .then((res) => {
-      console.log(res);
-      // console.log(res.data);
-    }
-    )
-    .catch((err) => {
-      console.log(err);
-    })
+      .then((res) => {
+        console.log(res);
+        // console.log(res.data);
+      }
+      )
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   const handleOnSubmit = (e) => {
@@ -53,41 +53,49 @@ function App() {
   const headerKeys = Object.keys(Object.assign({}, ...array));
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>REACTJS CSV IMPORT EXAMPLE </h1>
+    <div className="text-blue-500 text-center grid place-content-center">
       <form>
         <input
           type="file"
           id="csvFileInput"
           accept=".csv"
           onChange={handleOnChange}
+          className="border border-blue-500 rounded-md py-2 px-4 mb-4"
         />
 
-        <button onClick={(e) => handleOnSubmit(e)}>IMPORT CSV</button>
+        <button
+          onClick={(e) => handleOnSubmit(e)}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          IMPORT CSV
+        </button>
       </form>
 
       <br />
 
-      <table>
-        <thead>
-          <tr key="header">
-            {headerKeys.map((key) => (
-              <th key={key}>{key}</th>
+      <div className="overflow-x-auto">
+    <table className="border border-blue-500">
+      <thead>
+        <tr className="bg-blue-500 text-white" key="header">
+          {headerKeys.map((key) => (
+            <th key={key} className="py-2 px-4">{key}</th>
+          ))}
+        </tr>
+      </thead>
+
+      <tbody>
+        {array.map((item, index) => (
+          <tr key={index}>
+            {Object.values(item).map((val, index) => (
+              <td key={index} className="border border-blue-500 py-2 px-4">{val}</td>
             ))}
           </tr>
-        </thead>
-
-        <tbody>
-          {array.map((item, index) => (
-            <tr key={index}>
-              {Object.values(item).map((val, index) => (
-                <td key={index}>{val}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        ))}
+      </tbody>
+    </table>
+  </div>
     </div>
+
   );
 }
 
