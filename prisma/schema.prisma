@@ -9,41 +9,42 @@ datasource db {
 }
 
 model ClubMember {
-  id                       String       @id @default(cuid())
-  Sex                      String?
-  Department               String?      @db.VarChar(255)
-  Designation              String?      @db.VarChar(255)
-  FFCS                     Boolean      @default(false)
+  id                       String        @id @default(cuid())
+  Username                 String        @unique
+  RegNo                    String        @unique
+  Name                     String
+  VITEmail                 String        @unique
+  RegisteredFaculty        Faculty?      @relation(fields: [FacultyId], references: [id])
+  FacultyId                String
   DepartmentPreference_One String?
   DepartmentPreference_Two String?
-  Description              String?
-  RegNo                    String       @unique
-  Username                 String       @unique
-  VITEmail                 String       @unique
   WhatsAppNumber           String
-  facultyId                String
-  Name                     String
-  isAdmin                  Boolean      @default(false)
-  RegisteredFaculty        Faculty?     @relation(fields: [facultyId], references: [id])
-  Events                   Event[]
+  Description              String?
+  Sex                      String?
+  Department               String?       @db.VarChar(255)
+  Designation              String?       @db.VarChar(255)
+  FFCS                     Boolean       @default(false)
+  isAdmin                  Boolean       @default(false)
   Session                  Session[]
-  Particpant               Particpant[]
+  Event                    Event[]
+  Particpant               Participant[]
 
-  @@index([facultyId])
+  @@index([FacultyId])
 }
 
 model Event {
-  id                  String             @id @default(cuid())
+  id                  String             @id @unique
   Name                String?
-  Date                DateTime
-  Time                DateTime
+  StartTime           DateTime           @default(now())
+  EndTime             DateTime           @default(now())
   Description         String             @db.VarChar(255)
   Venue               String
   clubMemberId        String?
-  facultyId           Int?
+  facultyId           String?
   studentCordinatorId Int?
-  participants        Particpant[]
+  Participants        Participant[]
   ClubMember          ClubMember?        @relation(fields: [clubMemberId], references: [id])
+  Faculty             Faculty?           @relation(fields: [facultyId], references: [id])
   StudentCordinator   StudentCordinator? @relation(fields: [studentCordinatorId], references: [id])
 
   @@index([studentCordinatorId])
@@ -55,6 +56,7 @@ model Faculty {
   id         String       @id @default(cuid())
   Name       String
   ClubMember ClubMember[]
+  Event      Event[]
 }
 
 model StudentCordinator {
@@ -62,35 +64,31 @@ model StudentCordinator {
   Name           String
   RegisterNumber String
   Phone          Int
-  Events         Event[]
+  Event          Event[]
 }
 
-model Particpant {
-  id             String       @id @default(cuid())
-  Email          String       @unique
-  Name           String
-  RegisterNumber String       @unique
-  eventId        String?
-  QR             String       @unique
-  clubMemberId   String
-  Event          Event?       @relation(fields: [eventId], references: [id])
-  Attendance     Attendance[]
-  ClubMember     ClubMember   @relation(fields: [clubMemberId], references: [id])
+model Participant {
+  id           String       @id @unique
+  QR           String       @unique
+  eventId      String?
+  Event        Event?       @relation(fields: [eventId], references: [id])
+  Attendance   Attendance[]
+  ClubMember   ClubMember   @relation(fields: [clubMemberId], references: [id])
+  clubMemberId String
 
   @@index([eventId])
   @@index([clubMemberId])
 }
 
 model Attendance {
-  id           Int        @id @default(autoincrement())
-  Date         DateTime
-  EntryTime    DateTime
-  ExitTime     DateTime
-  QR           String     @unique
-  particpantId String     @unique
-  particpant   Particpant @relation(fields: [particpantId], references: [id])
+  id            Int         @id @default(autoincrement())
+  EntryTime     DateTime
+  ExitTime      DateTime    @default(now())
+  Attended      Boolean
+  participantId String
+  particpant    Participant @relation(fields: [participantId], references: [id])
 
-  @@index([particpantId])
+  @@index([participantId])
 }
 
 model Session {

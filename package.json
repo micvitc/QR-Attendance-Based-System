@@ -21,6 +21,7 @@
     "axios": "^1.4.0",
     "debug": "^4.3.4",
     "framer-motion": "^10.12.12",
+    "moment": "^2.29.4",
     "nanoid": "^4.0.2",
     "next": "^13.4.1",
     "next-auth": "^4.22.1",
@@ -32,6 +33,6 @@
     "tailwindcss": "3.3.2"
   },
   "devDependencies": {
-    "prisma": "^4.14.1"
+    "prisma": "^4.16.2"
   }
 }
