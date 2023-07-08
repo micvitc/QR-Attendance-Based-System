@@ -1,49 +1,50 @@
-//scan.js
-"use client";
-import React, { useState, useEffect } from "react";
-import { QrReader } from "react-qr-reader";
-import styles from "../../styles/Home.module.css";
-import axios from "axios";
+import QR from "@/components/qr";
+import { getAuthSession } from "@/lib/auth";
+import { db } from "@/lib/db";
+import Link from "next/link";
 
-function Scan() {
-  const [data, setData] = useState("No result");
-  useEffect(() => {
-    console.log(data);
-    if (data != "No result") {
-      axios
-        .post("/api/verifyQr", { data })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+async function Scan() {
+  const session = await getAuthSession()
+
+  try {
+
+    if (!session.user) {
+      return (
+        <div className="p-4 h-[80vh] grid place-items-center">
+
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
+            <Link href="/signin">Sign In</Link>
+          </button>
+        </div>
+      )
     }
-  }, [data]);
+    const { isAdmin } = await db.ClubMember.findFirst({
+      where: { VITEmail: session.user.email },
+    })
+    console.log("Admin", isAdmin, session.user.email)
+    if (isAdmin) {
+      return <QR />
+    }
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.container}>
-        <QrReader
-          onResult={(result, error) => {
-            if (!!result) {
-              setData(result?.text);
-            }
-
-            if (!!error) {
-              console.info(error);
-            }
-          }}
-          //this is facing mode : "environment " it will open backcamera of the smartphone and if not found will
-          // open the front camera
-          constraints={{ facingMode: "environment" }}
-          style={{ width: "40%", height: "40%" }}
-        />
-        <h1>Value</h1>
-        <p>{data}</p>
+    else {
+      return (<div className="p-4 h-[80vh] grid place-items-center">
+        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
+          You are not authorized to access this page
+        </button>
+      </div>)
+    }
+  }
+  catch (err) {
+    return (
+      <div className="p-4 h-[80vh] grid place-items-center">
+        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4">
+          Something went wrong
+        </button>
       </div>
-    </div>
-  );
+    )
+  }
+
+
 }
 
 export default Scan;

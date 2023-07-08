@@ -9,10 +9,9 @@ import { db } from "@/lib/db";
 export default async function Navbar() {
   // const [isOpen, setIsOpen] = useState(false)
   const session = await getAuthSession();
-  // const { isAdmin } = await db.clubMember.findFirst({
-  //   where: { VITEmail: session?.user?.email },
-  //   select: { isAdmin: true },
-  // });
+  const { isAdmin } = await db.ClubMember.findFirst({
+    where: { VITEmail: session.user.email },
+  })
   return (
     <>
       <nav class="bg-blue-500 border-gray-200">
@@ -40,23 +39,28 @@ export default async function Navbar() {
                   Events
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/export"
-                  class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-white">
-                  Export
-                </Link>
-              </li>
+              {isAdmin && (
+                <>
+                  <li>
+                    <Link
+                      href="/export"
+                      class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-white">
+                      Export
+                    </Link>
+                  </li>
 
-              <li>
-             
-                  <Link
-                    href="/scan"
-                    class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-white">
-                    Scan
-                  </Link>
-  
-              </li>
+                  <li>
+
+                    <Link
+                      href="/scan"
+                      class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 text-white">
+                      Scan
+                    </Link>
+
+
+                  </li>
+                </>
+              )}
               {!session && (
                 <>
                   {/* <li>
@@ -77,7 +81,7 @@ export default async function Navbar() {
               )}
               {session && (
                 <>
-                    <NavLink />
+                  <NavLink />
                   <li>
                     <Link
                       href="/profile"

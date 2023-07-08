@@ -5,8 +5,12 @@ import React, { useState } from "react";
 function App() {
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
+try{
 
   const fileReader = new FileReader();
+}catch(err){
+  console.log("error")
+}
 
   const handleOnChange = (e) => {
     setFile(e.target.files[0]);

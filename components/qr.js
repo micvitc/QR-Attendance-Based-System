@@ -1,39 +1,46 @@
 "use client"
-
-import { Box, Button, ButtonGroup, Heading, Stack } from '@chakra-ui/react'
-import { Center, Square, Circle } from '@chakra-ui/react'
-import Image from 'next/image'
-import { Text } from '@chakra-ui/react'
+import React, { useState, useEffect } from "react";
+import { QrReader } from "react-qr-reader";
+import styles from "../styles/Home.module.css";
+import axios from "axios";
 
 export default function QR(){
-    return (
-    <>
-    <Center  h='100px' className='flex flex-col items-center justify-center h-screen' >
-        <Heading m= {10}>QR scanner</Heading>
-
-        <Image width={250} height={250} src='/sample-qr.png' alt='Dan Abramov' />
-        <Stack spacing={3}>
-
-            <Text fontSize='md'> Name  </Text>
-            
-            <Text m = {10} fontSize='md'> Registration number  </Text>
-
-        </Stack>
-
-        <Stack direction='row' spacing={4} align='center'>
-    
-    
-            <Button m = {5} colorScheme='teal' variant='outline'>
-                Finish
-            </Button>
-            <Button colorScheme='teal' variant='ghost'>
-                Next
-
-            </Button>
-        </Stack>
-
-
-</Center>
-</>
+        const [data, setData] = useState("No result");
+        useEffect(() => {
+          console.log(data);
+          if (data != "No result") {
+            axios
+              .post("/api/verifyQr", { data })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        }, [data]);
+      
+        return (
+          <div className={styles.container}>
+            <div className={styles.container}>
+              <QrReader
+                onResult={(result, error) => {
+                  if (!!result) {
+                    setData(result?.text);
+                  }
+      
+                  if (!!error) {
+                    console.info(error);
+                  }
+                }}
+                //this is facing mode : "environment " it will open backcamera of the smartphone and if not found will
+                // open the front camera
+                constraints={{ facingMode: "environment" }}
+                style={{ width: "40%", height: "40%" }}
+              />
+              <h1>Value</h1>
+              <p>{data}</p>
+            </div>
+          </div>
     )
 } 
