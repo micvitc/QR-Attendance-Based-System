@@ -81,14 +81,14 @@ model Participant {
 }
 
 model Attendance {
-  id           Int         @id @default(autoincrement())
-  EntryTime    DateTime
-  ExitTime     DateTime    @default(now())
-  Attended     Boolean
-  particpantId String
-  particpant   Participant @relation(fields: [particpantId], references: [id])
+  id            Int         @id @default(autoincrement())
+  EntryTime     DateTime
+  ExitTime      DateTime    @default(now())
+  Attended      Boolean
+  participantId String
+  particpant    Participant @relation(fields: [participantId], references: [id])
 
-  @@index([particpantId])
+  @@index([participantId])
 }
 
 model Session {

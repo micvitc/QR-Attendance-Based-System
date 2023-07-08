@@ -2,8 +2,8 @@ import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { QR } = await request.json();
-  console.log(QR);
+  const body = await request.json();
+  const QR = body?.data;
   try {
     const Participant = await db.participant.findFirst({
       where: {
@@ -22,6 +22,7 @@ export async function POST(request) {
         participantId: Participant?.id,
       },
     });
+    console.log(Attendance);
     return NextResponse.json(
       {
         message: "Attendance Marked Successfully",
@@ -30,6 +31,7 @@ export async function POST(request) {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       {
         message: "Paricipant not found...",

@@ -9,9 +9,9 @@ function Scan() {
   const [data, setData] = useState("No result");
   useEffect(() => {
     console.log(data);
-    if (data != "") {
+    if (data != "No result") {
       axios
-        .post("/api/verifyQr", data)
+        .post("/api/verifyQr", { data })
         .then((res) => {
           console.log(res);
         })
