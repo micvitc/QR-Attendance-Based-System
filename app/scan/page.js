@@ -8,14 +8,17 @@ import axios from "axios";
 function Scan() {
   const [data, setData] = useState("No result");
   useEffect(() => {
-    axios
-      .post("/api/verifyQr", data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log(data);
+    if (data != "") {
+      axios
+        .post("/api/verifyQr", data)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [data]);
 
   return (
