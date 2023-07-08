@@ -1,10 +1,16 @@
 import Events from "@/components/Events/Events";
+import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import moment from "moment/moment";
 import Link from "next/link";
 
 export default async function BasicStatistics() {
+  const session = getAuthSession();
+  try {
+
+
   const EventList = await db.Event.findMany();
+
 
   return (
     <>
@@ -68,4 +74,15 @@ export default async function BasicStatistics() {
     </>
 
   );
+        }
+  catch (err) {
+    return (
+      <div className="p-4 h-[80vh] grid place-items-center">
+        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4">
+          Something went wrong
+        </button>
+      </div>
+    )
+
+  }
 }

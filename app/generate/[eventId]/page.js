@@ -4,9 +4,23 @@ import { db } from "@/lib/db";
 import QRCode from "react-qr-code";
 import styles from "../../../styles/Home.module.css";
 import { getAuthSession } from "@/lib/auth";
+import Link from "next/link";
 
 async function Generate({ params }) {
   const session = await getAuthSession();
+  if (!session) {
+    return (
+      <div className="p-4 h-[80vh] grid place-items-center">
+
+        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
+          <Link href="/signin">Sign In</Link>
+        </button>
+      </div>
+    )
+  }
+  try {
+
+    
   const ClubMember = await db.clubMember.findFirst({
     where: { VITEmail: session.user.email },
   });
@@ -26,6 +40,16 @@ async function Generate({ params }) {
       {QR != null && <QRCode value={QR} className={styles.containerColumn} />}
     </div>
   );
+  }
+  catch (err) {
+    return (
+      <div className="p-4 h-[80vh] grid place-items-center">
+        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4">
+          Something went wrong
+        </button>
+      </div>
+    )
+  }
 }
 
 export default Generate;
