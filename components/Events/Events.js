@@ -9,7 +9,7 @@ import Link from "next/link";
 function Events(props) {
   const { id, Name, Description, Venue, StartTime, EndTime } = props;
   return (
-    <Link href={`/generate/${id}`}>
+    <Link href={`/events/${id}`}>
       <Stat
         px={{ base: 4, md: 8 }}
         py={"5"}

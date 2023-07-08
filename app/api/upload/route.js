@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { nanoid } from "nanoid";
-import { authOptions } from "@/lib/auth";
+import {  getAuthSession } from "@/lib/auth";
 
 export async function POST(request) {
   var body = await request.json();
-  const session = await authOptions()
+  const session = await getAuthSession()
+try{
 
   if (session.user) {
     const { isAdmin } = await db.ClubMember.findFirst({
@@ -41,4 +42,8 @@ export async function POST(request) {
   // console.log(user);
 
   return NextResponse.json({ message: "success" });
+}
+catch(err){
+  return NextResponse.json({ message:err })
+}
 }
