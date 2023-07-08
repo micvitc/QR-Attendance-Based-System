@@ -1,11 +1,22 @@
 //scan.js
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { QrReader } from "react-qr-reader";
 import styles from "../../styles/Home.module.css";
+import axios from "axios";
 
 function Scan() {
   const [data, setData] = useState("No result");
+  useEffect(() => {
+    axios
+      .post("/api/verifyQr", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [data]);
 
   return (
     <div className={styles.container}>

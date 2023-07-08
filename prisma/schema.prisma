@@ -9,25 +9,25 @@ datasource db {
 }
 
 model ClubMember {
-  id                       String   @id @default(cuid())
-  Username                 String   @unique
-  RegNo                    String   @unique
+  id                       String        @id @default(cuid())
+  Username                 String        @unique
+  RegNo                    String        @unique
   Name                     String
-  VITEmail                 String   @unique
-  RegisteredFaculty        Faculty? @relation(fields: [FacultyId], references: [id])
+  VITEmail                 String        @unique
+  RegisteredFaculty        Faculty?      @relation(fields: [FacultyId], references: [id])
   FacultyId                String
   DepartmentPreference_One String?
   DepartmentPreference_Two String?
   WhatsAppNumber           String
   Description              String?
   Sex                      String?
-  Department               String?  @db.VarChar(255)
-  Designation              String?  @db.VarChar(255)
-  FFCS                     Boolean  @default(false)
-  isAdmin                  Boolean      @default(false)
-  Session    Session[]
-  Event      Event[]
-  Particpant Participant[]
+  Department               String?       @db.VarChar(255)
+  Designation              String?       @db.VarChar(255)
+  FFCS                     Boolean       @default(false)
+  isAdmin                  Boolean       @default(false)
+  Session                  Session[]
+  Event                    Event[]
+  Particpant               Participant[]
 
   @@index([FacultyId])
 }
@@ -82,9 +82,8 @@ model Participant {
 
 model Attendance {
   id           Int         @id @default(autoincrement())
-  Date         DateTime
   EntryTime    DateTime
-  ExitTime     DateTime
+  ExitTime     DateTime    @default(now())
   Attended     Boolean
   particpantId String
   particpant   Participant @relation(fields: [particpantId], references: [id])
