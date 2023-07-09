@@ -1,6 +1,8 @@
 import { getAuthSession } from "@/lib/auth";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic' 
+
 export default function SimpleCard() {
   const session = getAuthSession()
   return (

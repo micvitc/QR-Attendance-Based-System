@@ -4,6 +4,8 @@ import QRCode from "react-qr-code";
 import { getAuthSession } from "@/lib/auth";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic' 
+
 async function Generate({ params }) {
     const session = await getAuthSession();
     try {
