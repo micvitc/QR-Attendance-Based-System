@@ -32,6 +32,7 @@ function Events(props) {
         <StatNumber fontSize={"xl"} fontWeight={"medium"}>
           Venue : {Venue}
         </StatNumber>
+
       </Stat>
     </Link>
   );
