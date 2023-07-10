@@ -17,7 +17,7 @@ const Contributors = () => {
         {
           id: 1,
           name: 'Malay Kumar',
-          designation: 'Full Stack Developer - Backend Developer',
+          designation: 'Web Dev',
           description: 'Quirky visionary, perpetually exploring innovation.',
           image: 'malay.jpg',
           socialMedia: {
@@ -29,7 +29,7 @@ const Contributors = () => {
         {
           id: 1,
           name: 'Vasu Bhasin',
-          designation: 'Web Developer',
+          designation: 'Web Dev',
           description: 'A dynamic individual fueled by curiosity, creativity, and an unwavering passion.',
           image: 'vasu.jpg',
           socialMedia: {
@@ -41,7 +41,7 @@ const Contributors = () => {
         {
           id: 1,
           name: 'Harsh Jain',
-          designation: 'Web Developer',
+          designation: 'Web Dev',
           description: 'Creative problem-solver, always seeking new challenges.',
           image: 'harsh.jpg',
           socialMedia: {
@@ -53,7 +53,7 @@ const Contributors = () => {
         {
           id: 1,
           name: 'H G Leerish Arvind',
-          designation: 'UI Design, Backend Developer ',
+          designation: 'Web Dev ',
           description: 'Passionate Front-End Developer ',
           image: 'leerish.jpg',
           socialMedia: {
@@ -65,7 +65,7 @@ const Contributors = () => {
         {
           id: 1,
           name: 'Ramireddy Jeevan Reddy',
-          designation: 'Frontend Developer',
+          designation: 'Web Dev',
           description: 'A lifelong learner committed to personal and professional growth.',
           image: 'jeevan.jpg',
           socialMedia: {
@@ -79,7 +79,7 @@ const Contributors = () => {
           name: 'Prajjwal Kumar',
           designation: 'Management',
           description: 'Good leader with capability of managing people and delegation of work',
-          image: 'Prajjwal.jpg',
+          image: 'Prajjwal1.jpg',
           socialMedia: {
             instagram: 'Prajjwal_538',
             github: 'Prajjwal-Kumar',
@@ -143,7 +143,7 @@ const Contributors = () => {
         {contributorsData.map(contributor => (
           <div key={contributor.id} className="contributor-card flex items-center bg-gray-200 rounded-md p-4">
             <div className="contributor-image">
-              <img src={contributor.image} alt={contributor.name} className="w-16 h-16 object-cover rounded-full mr-4" />
+              <img src={contributor.image} alt={contributor.name} className="w-12 h-16 object-cover mr-4" />
             </div>
             <div className="contributor-info">
               <h2 className="text-black text-lg font-bold ml-8">{contributor.name}</h2>
