@@ -7,7 +7,7 @@ const Contributors = () => {
           name: 'Emmanuel Allan M J',
           designation: 'Project Lead',
           description: 'Versatile creator with a flair for innovation.',
-          image: 'allan.jpg',
+          image: '/allan.JPG',
           socialMedia: {
             instagram: '',
             github: 'EmmanuelAllanMJ',
@@ -19,7 +19,7 @@ const Contributors = () => {
           name: 'Malay Kumar',
           designation: 'Web Dev',
           description: 'Quirky visionary, perpetually exploring innovation.',
-          image: 'malay.jpg',
+          image: 'malay.JPG',
           socialMedia: {
             instagram: '',
             github: 'Malay-dev',
@@ -43,7 +43,7 @@ const Contributors = () => {
           name: 'Harsh Jain',
           designation: 'Web Dev',
           description: 'Creative problem-solver, always seeking new challenges.',
-          image: 'harsh.jpg',
+          image: 'harsh.JPG',
           socialMedia: {
             instagram: 'harsh.jn18',
             github: 'Harsh-jn',
@@ -55,7 +55,7 @@ const Contributors = () => {
           name: 'H G Leerish Arvind',
           designation: 'Web Dev ',
           description: 'Passionate Front-End Developer ',
-          image: 'leerish.jpg',
+          image: 'leerish.JPG',
           socialMedia: {
             instagram: '',
             github: 'Leerish',
@@ -67,7 +67,7 @@ const Contributors = () => {
           name: 'Ramireddy Jeevan Reddy',
           designation: 'Web Dev',
           description: 'A lifelong learner committed to personal and professional growth.',
-          image: 'jeevan.jpg',
+          image: 'jeevan.JPG',
           socialMedia: {
             instagram: '',
             github: 'RamireddyJeevanReddy',
@@ -79,7 +79,7 @@ const Contributors = () => {
           name: 'Prajjwal Kumar',
           designation: 'Management',
           description: 'Good leader with capability of managing people and delegation of work',
-          image: 'Prajjwal1.jpg',
+          image: 'Prajjwal1.JPG',
           socialMedia: {
             instagram: 'Prajjwal_538',
             github: 'Prajjwal-Kumar',
@@ -91,7 +91,7 @@ const Contributors = () => {
           name: 'Akshat Gupta',
           designation: 'Management',
           description: ' Passionate Blockchain developer',
-          image: 'akshat.jpg',
+          image: 'Akshat.JPG',
           socialMedia: {
             instagram: '',
             github: 'akshatgupta-1',

@@ -51,6 +51,14 @@ export default async function Navbar() {
                   Events
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/contributors"
+                  className="block py-2 pl-3 pr-4 text-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0"
+                  aria-current="page">
+                  Contributors
+                </Link>
+              </li>
               {isAdmin && (
                 <>
                   <li>
