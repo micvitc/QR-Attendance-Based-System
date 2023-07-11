@@ -4,13 +4,18 @@ import { db } from "@/lib/db";
 import moment from "moment/moment";
 import Link from "next/link";
 
-export const dynamic = 'force-dynamic' 
+export const dynamic = 'force-dynamic'
 export default async function BasicStatistics() {
-  const session = getAuthSession();
+  const session = await getAuthSession();
   try {
 
-
     const EventList = await db.Event.findMany();
+    // get user whether he is admin or not
+    const {isAdmin}= await db.ClubMember.findFirst({
+      where: {
+        VITEmail: session?.user?.email,
+      },
+    });
 
 
     return (
@@ -69,14 +74,16 @@ export default async function BasicStatistics() {
               />
             ))}
           </div>
-          <Link href="/admin" type="button" className=" text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  focus:outline-none">Create Event</Link>
-        </div>
+          {isAdmin && 
+            <Link href="/admin" type="button" className=" mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  focus:outline-none">Create Event</Link>
+          }        </div>
 
       </>
 
     );
   }
   catch (err) {
+    console.log(err);
     return (
       <div className="p-4 h-[80vh] grid place-items-center">
         <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4">
